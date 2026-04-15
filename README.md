@@ -134,6 +134,19 @@ cd backend
 alembic upgrade head
 ```
 
+Команды миграций для SQLite через Docker Compose:
+
+```bash
+# применить все миграции
+docker compose run --rm backend alembic upgrade head
+
+# создать новую миграцию
+docker compose run --rm backend alembic revision -m "описание изменений"
+
+# откатить миграцию на один шаг
+docker compose run --rm backend alembic downgrade -1
+```
+
 ## Начальные данные (Seed)
 
 Скрипт заполнения базы данных:
