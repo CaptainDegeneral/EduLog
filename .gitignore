@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+backend/.env
+backend/edulog.db
+
+frontend/.env
+frontend/node_modules/
+frontend/dist/
+
+.DS_Store

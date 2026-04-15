@@ -1,0 +1,1 @@
+"""EduLog backend application package."""
