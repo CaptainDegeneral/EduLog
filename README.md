@@ -198,3 +198,33 @@ python seed.py
 - Поля `total_income`, `total_hours` и `total_debt` рассчитываются на основе не отменённых занятий.
 - Поле `cancelled_count` учитывает отменённые занятия отдельно.
 - Таблица занятий во frontend поддерживает фильтрацию, модальное окно создания и редактирование строк inline.
+
+## Nginx + HTTPS (VPS)
+
+Для внешнего доступа через домен используется сервис `reverse-proxy` из `docker-compose.yml`.
+
+1. Обновите домен в `deploy/nginx/default.conf`:
+   - `your-domain.com`
+   - `www.your-domain.com` (опционально)
+2. Установите в `.env`:
+
+```env
+VITE_API_BASE_URL=https://your-domain.com/api
+```
+
+3. Получите сертификат (до запуска `reverse-proxy`):
+
+```bash
+mkdir -p deploy/certbot/www deploy/certbot/conf
+docker run --rm -it \
+  -p 80:80 \
+  -v "$(pwd)/deploy/certbot/conf:/etc/letsencrypt" \
+  certbot/certbot certonly --standalone \
+  -d your-domain.com -d www.your-domain.com
+```
+
+4. Поднимите сервисы:
+
+```bash
+docker compose up -d --build
+```
